@@ -1,0 +1,395 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-muted;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/50 rounded-full transition-colors;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/70;
+}
+
+/* Hero section */
+.hero-slide {
+  @apply relative h-[80vh] w-full overflow-hidden;
+}
+
+.hero-slide-content {
+  @apply absolute inset-0 flex flex-col items-center justify-center text-center p-6 z-10;
+}
+
+.hero-slide-bg {
+  @apply absolute inset-0 bg-cover bg-center;
+}
+
+.hero-slide-overlay {
+  @apply absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70 dark:from-black/80 dark:via-black/60 dark:to-black/80;
+}
+
+.slide-dots {
+  @apply absolute bottom-8 left-0 right-0 flex justify-center gap-2 z-20;
+}
+
+.slide-dot {
+  @apply h-3 w-3 rounded-full bg-white/50 transition-all duration-300;
+}
+
+.slide-dot-active {
+  @apply bg-white w-6;
+}
+
+/* Animated gradient background */
+.gradient-bg {
+  @apply relative overflow-hidden;
+}
+
+.gradient-bg::before {
+  content: "";
+  @apply absolute inset-0 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent dark:from-primary/20 dark:via-primary/10 dark:to-transparent;
+  animation: gradient-shift 8s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-25%);
+  }
+}
+
+/* Animated cards */
+.service-card {
+  @apply relative overflow-hidden rounded-lg border bg-card text-card-foreground shadow-sm transition-all duration-500 hover:shadow-lg hover:-translate-y-2;
+}
+
+.service-card::before {
+  content: "";
+  @apply absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 transition-opacity duration-500;
+}
+
+.service-card:hover::before {
+  @apply opacity-100;
+}
+
+.service-card-image {
+  @apply aspect-video w-full object-cover;
+}
+
+.service-card-content {
+  @apply p-6;
+}
+
+/* Navigation */
+.nav-link {
+  @apply text-sm font-medium transition-colors hover:text-primary relative;
+}
+
+.nav-link::after {
+  content: "";
+  @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+}
+
+.nav-link:hover::after {
+  @apply w-full;
+}
+
+.nav-link-active {
+  @apply text-primary;
+}
+
+.nav-link-active::after {
+  @apply w-full;
+}
+
+/* Products */
+.pcb-product-grid {
+  @apply grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
+}
+
+.pcb-product-card {
+  @apply flex flex-col overflow-hidden rounded-lg border bg-card text-card-foreground shadow transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+}
+
+.pcb-product-image {
+  @apply aspect-square w-full object-cover transition-transform duration-500;
+}
+
+.pcb-product-card:hover .pcb-product-image {
+  @apply scale-105;
+}
+
+.pcb-product-content {
+  @apply flex flex-1 flex-col p-6;
+}
+
+.pcb-product-title {
+  @apply text-xl font-semibold;
+}
+
+.pcb-product-description {
+  @apply mt-2 text-sm text-muted-foreground;
+}
+
+.pcb-product-price {
+  @apply mt-4 text-lg font-bold;
+}
+
+.pcb-product-actions {
+  @apply mt-6 flex items-center justify-between;
+}
+
+/* Animated counter */
+.counter-value {
+  @apply text-4xl font-bold text-primary;
+  counter-reset: count 0;
+  animation: count-up 2s forwards;
+}
+
+@keyframes count-up {
+  from {
+    counter-increment: count 0;
+  }
+  to {
+    counter-increment: count var(--value);
+  }
+}
+
+.counter-value::after {
+  content: counter(count);
+}
+
+/* Animated background patterns */
+.animated-bg {
+  @apply relative overflow-hidden;
+}
+
+.animated-bg::before {
+  content: "";
+  @apply absolute inset-0 bg-[url('/grid-pattern.svg')] bg-repeat opacity-5 dark:opacity-10;
+  animation: bg-scroll 20s linear infinite;
+}
+
+@keyframes bg-scroll {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100% 100%;
+  }
+}
+
+/* Glowing effect */
+.glow {
+  @apply relative;
+}
+
+.glow::after {
+  content: "";
+  @apply absolute -inset-[2px] rounded-lg bg-gradient-to-r from-primary via-primary/50 to-primary blur-lg opacity-0 transition-opacity duration-300;
+  z-index: -1;
+}
+
+.glow:hover::after {
+  @apply opacity-70;
+}
+
+/* Testimonial slider */
+.testimonial-card {
+  @apply rounded-lg border bg-card p-6 shadow-sm transition-all duration-300;
+}
+
+.testimonial-card:hover {
+  @apply shadow-md;
+}
+
+/* Floating animation */
+.floating {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Pulse animation */
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Reveal animation */
+.reveal {
+  @apply opacity-0 translate-y-8 transition-all duration-700;
+}
+
+.reveal.active {
+  @apply opacity-100 translate-y-0;
+}
+
+/* Staggered animation */
+.stagger-item {
+  @apply opacity-0 translate-y-4 transition-all duration-500;
+}
+
+.stagger-container.active .stagger-item:nth-child(1) {
+  @apply opacity-100 translate-y-0;
+  transition-delay: 0ms;
+}
+
+.stagger-container.active .stagger-item:nth-child(2) {
+  @apply opacity-100 translate-y-0;
+  transition-delay: 100ms;
+}
+
+.stagger-container.active .stagger-item:nth-child(3) {
+  @apply opacity-100 translate-y-0;
+  transition-delay: 200ms;
+}
+
+.stagger-container.active .stagger-item:nth-child(4) {
+  @apply opacity-100 translate-y-0;
+  transition-delay: 300ms;
+}
+
+.stagger-container.active .stagger-item:nth-child(5) {
+  @apply opacity-100 translate-y-0;
+  transition-delay: 400ms;
+}
+
+.stagger-container.active .stagger-item:nth-child(6) {
+  @apply opacity-100 translate-y-0;
+  transition-delay: 500ms;
+}
+
+/* Gradient text */
+.gradient-text {
+  @apply bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent;
+}
+
+/* Animated button */
+.btn-animated {
+  @apply relative overflow-hidden;
+}
+
+.btn-animated::after {
+  content: "";
+  @apply absolute inset-0 bg-white/20 translate-x-[-100%] skew-x-[-15deg] transition-transform duration-500;
+}
+
+.btn-animated:hover::after {
+  @apply translate-x-[100%];
+}
+
+/* Circular progress */
+.circular-progress {
+  @apply relative h-24 w-24 rounded-full;
+}
+
+.circular-progress::before {
+  content: "";
+  @apply absolute inset-0 rounded-full border-4 border-muted;
+}
+
+.circular-progress::after {
+  content: "";
+  @apply absolute inset-0 rounded-full border-4 border-transparent border-t-primary;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Parallax effect */
+.parallax {
+  @apply relative overflow-hidden;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
