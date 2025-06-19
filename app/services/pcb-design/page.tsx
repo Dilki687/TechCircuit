@@ -180,7 +180,7 @@ export default function PCBDesignPage() {
             Contact us for a free consultation on your custom PCB design requirements. Our team of experts will help you
             bring your electronic project to life.
           </p>
-          <Button asChild size="lg">
+          <Button asChild size="lg" className="btn-animated">
             <a href="/contact">Contact Us</a>
           </Button>
         </div>

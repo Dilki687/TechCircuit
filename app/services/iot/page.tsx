@@ -403,7 +403,7 @@ export default function IoTPage() {
           <p className="mb-6 opacity-90">
             Contact us today to discuss your IoT requirements and get a free consultation.
           </p>
-          <Button asChild size="lg" variant="secondary">
+          <Button asChild size="lg" variant="secondary" className="btn-animated">
             <Link href="/contact">Get in Touch</Link>
           </Button>
         </div>

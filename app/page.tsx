@@ -41,7 +41,7 @@ export default function Home() {
     {
       title: "Innovative PCB Design",
       description: "Custom PCB designs that bring your electronic projects to life",
-      image: "/placeholder.svg?height=1080&width=1920",
+      image: "/images/pcb-home.jpg",
       link: "/services/pcb-design",
       icon: <CircuitBoard className="h-16 w-16" />,
       color: "from-blue-600 to-cyan-400",
@@ -49,7 +49,7 @@ export default function Home() {
     {
       title: "Modern Web Development",
       description: "Cutting-edge websites and web applications for your business",
-      image: "/placeholder.svg?height=1080&width=1920",
+      image: "/images/web-development.jpg",
       link: "/services/web-development",
       icon: <Globe className="h-16 w-16" />,
       color: "from-purple-600 to-pink-400",
@@ -57,7 +57,7 @@ export default function Home() {
     {
       title: "IoT Solutions",
       description: "Connect your devices to the internet of things with our custom solutions",
-      image: "/placeholder.svg?height=1080&width=1920",
+      image: "/images/iot-device.png",
       link: "/services/iot",
       icon: <Cpu className="h-16 w-16" />,
       color: "from-emerald-600 to-teal-400",
@@ -105,21 +105,21 @@ export default function Home() {
       role: "CTO, TechInnovate",
       content:
         "TechCircuit delivered an exceptional PCB design that exceeded our expectations. Their attention to detail and technical expertise made our product launch a success.",
-      image: "/placeholder.svg?height=100&width=100",
+      image: "/api/placeholder/100/100",
     },
     {
       name: "Michael Chen",
       role: "Founder, WebSolutions",
       content:
         "The web development team at TechCircuit transformed our online presence. Our new website has significantly increased our conversion rates and customer engagement.",
-      image: "/placeholder.svg?height=100&width=100",
+      image: "/api/placeholder/100/100",
     },
     {
       name: "Emily Rodriguez",
       role: "Product Manager, IoT Ventures",
       content:
         "Working with TechCircuit on our IoT project was a game-changer. Their innovative solutions helped us bring our smart home product to market months ahead of schedule.",
-      image: "/placeholder.svg?height=100&width=100",
+      image: "/api/placeholder/100/100",
     },
   ]
 
@@ -163,6 +163,7 @@ export default function Home() {
     },
   ]
 
+  // Improved slide interval management with cleanup
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length)
@@ -171,6 +172,7 @@ export default function Home() {
     return () => clearInterval(interval)
   }, [slides.length])
 
+  // Improved scroll handler with proper animation triggering
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10)
@@ -205,26 +207,37 @@ export default function Home() {
     }
 
     window.addEventListener("scroll", handleScroll)
-    handleScroll() // Initial check
+    
+    // Initial check to activate visible sections
+    setTimeout(handleScroll, 100)
 
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
+      {/* Hero Section with improved slider */}
       <section ref={sectionRefs.hero} className="relative h-[80vh] overflow-hidden">
         {slides.map((slide, index) => (
           <div
             key={index}
-            className={`hero-slide absolute inset-0 transition-opacity duration-1000 ${
-              index === currentSlide ? "opacity-100" : "opacity-0 pointer-events-none"
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
             }`}
           >
-            <div className="hero-slide-bg" style={{ backgroundImage: `url(${slide.image})` }} />
-            <div className="hero-slide-overlay" />
-            <div className="hero-slide-content">
-              <div className={`mb-6 text-white bg-gradient-to-r ${slide.color} p-4 rounded-full`}>{slide.icon}</div>
+            <div 
+              className="absolute inset-0 bg-cover bg-center" 
+              style={{ 
+                backgroundImage: `url(${slide.image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }} 
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 z-10">
+              <div className={`mb-6 inline-flex text-white bg-gradient-to-r ${slide.color} p-4 rounded-full`}>
+                {slide.icon}
+              </div>
               <h1 className="mb-4 text-5xl font-bold text-white sm:text-6xl md:text-7xl">
                 <span className="block">{slide.title}</span>
               </h1>
@@ -250,11 +263,14 @@ export default function Home() {
           </div>
         ))}
 
-        <div className="slide-dots">
+        {/* Improved slide dots navigation */}
+        <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-2 z-20">
           {slides.map((_, index) => (
             <button
               key={index}
-              className={`slide-dot ${index === currentSlide ? "slide-dot-active" : ""}`}
+              className={`h-3 rounded-full transition-all duration-300 ${
+                index === currentSlide ? "bg-white w-6" : "bg-white/50 w-3"
+              }`}
               onClick={() => setCurrentSlide(index)}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -264,7 +280,7 @@ export default function Home() {
 
       {/* Animated Features Section */}
       <section className="py-16 bg-gradient-to-b from-background to-muted/30">
-        <div className="container">
+        <div className="container px-4 mx-auto">
           <div className="grid gap-8 md:grid-cols-3">
             {features.slice(0, 3).map((feature, index) => (
               <div
@@ -284,14 +300,14 @@ export default function Home() {
 
       {/* About Section */}
       <section ref={sectionRefs.about} className="py-20 reveal">
-        <div className="container">
+        <div className="container px-4 mx-auto">
           <div className="grid gap-12 items-center md:grid-cols-2">
             <div className="relative">
               <div className="absolute -top-4 -left-4 w-24 h-24 bg-primary/10 rounded-lg z-0"></div>
               <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-primary/10 rounded-lg z-0"></div>
               <div className="relative z-10 rounded-lg overflow-hidden shadow-xl">
                 <Image
-                  src="/placeholder.svg?height=600&width=600"
+                  src="/images/pcb-home2.png"
                   alt="About TechCircuit"
                   width={600}
                   height={600}
@@ -344,7 +360,7 @@ export default function Home() {
 
       {/* Stats Section */}
       <section ref={sectionRefs.stats} className="py-20 bg-muted animated-bg">
-        <div className="container">
+        <div className="container px-4 mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold sm:text-4xl mb-4">Our Impact in Numbers</h2>
             <p className="max-w-2xl mx-auto text-muted-foreground">
@@ -357,7 +373,7 @@ export default function Home() {
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
                   {stat.icon}
                 </div>
-                <div className="text-4xl font-bold text-primary mb-2" style={{ "--value": stat.value } as any}>
+                <div className="text-4xl font-bold text-primary mb-2">
                   {stat.value}+
                 </div>
                 <div className="text-muted-foreground">{stat.label}</div>
@@ -368,8 +384,8 @@ export default function Home() {
       </section>
 
       {/* Services Overview */}
-      <section ref={sectionRefs.services} className="py-20 stagger-container">
-        <div className="container">
+      <section ref={sectionRefs.services} className="py-20">
+        <div className="container px-4 mx-auto">
           <div className="text-center mb-12">
             <div className="inline-block rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary mb-4">
               Our Services
@@ -381,7 +397,7 @@ export default function Home() {
               We offer a wide range of services to help you bring your ideas to life and stay ahead of the competition.
             </p>
           </div>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 stagger-container">
             {services.map((service, index) => (
               <Card key={index} className="service-card stagger-item overflow-hidden border-none shadow-lg">
                 <div className={`h-2 w-full bg-gradient-to-r ${service.color}`}></div>
@@ -418,7 +434,7 @@ export default function Home() {
 
       {/* Testimonials Section */}
       <section ref={sectionRefs.testimonials} className="py-20 bg-gradient-to-b from-muted/30 to-background">
-        <div className="container">
+        <div className="container px-4 mx-auto">
           <div className="text-center mb-12">
             <div className="inline-block rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary mb-4">
               Testimonials
@@ -434,7 +450,7 @@ export default function Home() {
                 <div className="flex items-center mb-4">
                   <div className="mr-4">
                     <Image
-                      src={testimonial.image || "/placeholder.svg"}
+                      src={testimonial.image}
                       alt={testimonial.name}
                       width={60}
                       height={60}
@@ -460,7 +476,7 @@ export default function Home() {
 
       {/* More Features Section */}
       <section className="py-20">
-        <div className="container">
+        <div className="container px-4 mx-auto">
           <div className="grid gap-12 items-center md:grid-cols-2">
             <div className="space-y-6">
               <div className="inline-block rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
@@ -493,7 +509,7 @@ export default function Home() {
               <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-primary/10 rounded-lg z-0"></div>
               <div className="relative z-10 rounded-lg overflow-hidden shadow-xl">
                 <Image
-                  src="/placeholder.svg?height=600&width=600"
+                  src="/images/why-choose-us.avif"
                   alt="Our Features"
                   width={600}
                   height={600}
@@ -507,7 +523,7 @@ export default function Home() {
 
       {/* CTA Section */}
       <section ref={sectionRefs.cta} className="py-20 bg-gradient-to-r from-primary/10 to-primary/5 reveal">
-        <div className="container">
+        <div className="container px-4 mx-auto">
           <div className="rounded-2xl bg-gradient-to-r from-primary to-blue-600 p-8 md:p-12 shadow-xl">
             <div className="mx-auto max-w-3xl text-center">
               <h2 className="mb-4 text-3xl font-bold text-white sm:text-4xl">Ready to bring your ideas to life?</h2>
@@ -524,7 +540,7 @@ export default function Home() {
                   variant="outline"
                   className="border-2 text-white border-white/50 hover:bg-white/10 hover:border-white"
                 >
-                  <Link href="/services">Explore Services</Link>
+                  <Link href="/services/pcb-design">Explore Services</Link>
                 </Button>
               </div>
             </div>
@@ -534,7 +550,7 @@ export default function Home() {
 
       {/* Partners Section */}
       <section className="py-20">
-        <div className="container">
+        <div className="container px-4 mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold sm:text-4xl mb-4">Trusted by Leading Companies</h2>
             <p className="max-w-2xl mx-auto text-muted-foreground">
@@ -548,7 +564,7 @@ export default function Home() {
                 className="flex items-center justify-center p-6 rounded-lg border bg-card/50 transition-all duration-300 hover:shadow-md"
               >
                 <Image
-                  src="/placeholder-logo.svg"
+                  src="/api/placeholder/120/60"
                   width={120}
                   height={60}
                   alt={`Partner ${index + 1}`}

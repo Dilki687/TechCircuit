@@ -119,7 +119,7 @@ export default function AboutPage() {
             </Button>
           </div>
           <div className="relative aspect-square overflow-hidden rounded-lg">
-            <Image src="/placeholder.svg?height=800&width=800" alt="TechCircuit Team" fill className="object-cover" />
+            <Image src="/images/about.jpg" alt="TechCircuit Team" fill className="object-cover" />
           </div>
         </div>
       </section>
@@ -226,10 +226,10 @@ export default function AboutPage() {
               Contact us today to discuss your project and see how we can help bring your ideas to life.
             </p>
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-              <Button asChild size="lg" variant="secondary">
+              <Button asChild size="lg" variant="secondary" className="btn-animated">
                 <Link href="/contact">Contact Us</Link>
               </Button>
-              <Button asChild size="lg" variant="outline">
+              <Button asChild size="lg" variant="outline" className="text-white">
                 <Link href="/services">Our Services</Link>
               </Button>
             </div>

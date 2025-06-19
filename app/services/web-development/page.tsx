@@ -194,7 +194,7 @@ export default function WebDevelopmentPage() {
           <p className="mb-6 opacity-90">
             Contact us today to discuss your web development needs and get a free consultation.
           </p>
-          <Button asChild size="lg" variant="secondary">
+          <Button asChild size="lg" variant="secondary" className="btn-animated">
             <Link href="/contact">Get in Touch</Link>
           </Button>
         </div>

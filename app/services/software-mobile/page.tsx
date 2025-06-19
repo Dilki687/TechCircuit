@@ -188,7 +188,7 @@ export default function SoftwareMobilePage() {
             <p className="mb-6 text-muted-foreground">
               Contact us today to discuss your project requirements and get a free consultation.
             </p>
-            <Button asChild size="lg">
+            <Button asChild size="lg" className="btn-animated">
               <Link href="/contact">Get Started</Link>
             </Button>
           </div>
